@@ -6,6 +6,7 @@
 #if !defined(ARTIST_FONT_FEBRUARY_11_2020)
 #define ARTIST_FONT_FEBRUARY_11_2020
 
+#include <artist/c/font.h>
 #include <string_view>
 #include <infra/filesystem.hpp>
 #include <memory>
@@ -27,42 +28,12 @@ namespace cycfi::artist
 
    namespace font_constants
    {
-      enum weight_enum
-      {
-         thin              = 10,
-         extra_light       = 20,
-         light             = 30,
-         weight_normal     = 40,
-         medium            = 50,
-         semi_bold         = 60,
-         bold              = 70,
-         extra_bold        = 80,
-         black             = 90,
-         extra_black       = 95,
-      };
-
-      enum slant_enum
-      {
-         slant_normal      = 0,
-         italic            = 90,
-         oblique           = 100
-      };
-
-      enum stretch_enum
-      {
-         ultra_condensed   = 25,
-         extra_condensed   = 31,
-         condensed         = 38,
-         semi_condensed    = 44,
-         stretch_normal    = 50,
-         semi_expanded     = 57,
-         expanded          = 63,
-         extra_expanded    = 75,
-         ultra_expanded    = 100
-      };
+      typedef artist_weight_enum weight_enum;
+      typedef artist_slant_enum slant_enum;
+      typedef artist_stretch_enum stretch_enum;
    }
 
-   struct font_descr
+   struct font_descr : artist_font_descr
    {
       font_descr           normal() const;
       font_descr           size(float size_) const;
@@ -96,12 +67,6 @@ namespace cycfi::artist
       font_descr           ultra_expanded() const;
 
       using slant_enum = font_constants::slant_enum;
-
-      std::string_view     _families;
-      float                _size = 12;
-      uint8_t              _weight = font_constants::weight_normal;
-      slant_enum           _slant = font_constants::slant_normal;
-      uint8_t              _stretch = font_constants::stretch_normal;
    };
 
    class font
@@ -118,12 +83,7 @@ namespace cycfi::artist
       explicit             operator bool() const;
       font_impl_ptr        impl() const;
 
-      struct metrics_info
-      {
-         float             ascent;
-         float             descent;
-         float             leading;
-      };
+      typedef artist_metrics_info metrics_info;
 
       metrics_info         metrics() const;
       float                line_height() const;
@@ -146,9 +106,9 @@ namespace cycfi::artist
    inline font_descr font_descr::normal() const
    {
       font_descr r = *this;
-      r._weight = font_constants::weight_normal;
-      r._slant = font_constants::slant_normal;
-      r._stretch = font_constants::stretch_normal;
+      r._weight = font_constants::weight_enum::weight_normal;
+      r._slant = font_constants::slant_enum::slant_normal;
+      r._stretch = font_constants::stretch_enum::stretch_normal;
       return r;
    }
 
@@ -169,70 +129,70 @@ namespace cycfi::artist
    inline font_descr font_descr::thin() const
    {
       font_descr r = *this;
-      r._weight = font_constants::thin;
+      r._weight = font_constants::weight_enum::thin;
       return r;
    }
 
    inline font_descr font_descr::extra_light() const
    {
       font_descr r = *this;
-      r._weight = font_constants::extra_light;
+      r._weight = font_constants::weight_enum::extra_light;
       return r;
    }
 
    inline font_descr font_descr::light() const
    {
       font_descr r = *this;
-      r._weight = font_constants::light;
+      r._weight = font_constants::weight_enum::light;
       return r;
    }
 
    inline font_descr font_descr::weight_normal() const
    {
       font_descr r = *this;
-      r._weight = font_constants::weight_normal;
+      r._weight = font_constants::weight_enum::weight_normal;
       return r;
    }
 
    inline font_descr font_descr::medium() const
    {
       font_descr r = *this;
-      r._weight = font_constants::medium;
+      r._weight = font_constants::weight_enum::medium;
       return r;
    }
 
    inline font_descr font_descr::semi_bold() const
    {
       font_descr r = *this;
-      r._weight = font_constants::semi_bold;
+      r._weight = font_constants::weight_enum::semi_bold;
       return r;
    }
 
    inline font_descr font_descr::bold() const
    {
       font_descr r = *this;
-      r._weight = font_constants::bold;
+      r._weight = font_constants::weight_enum::bold;
       return r;
    }
 
    inline font_descr font_descr::extra_bold() const
    {
       font_descr r = *this;
-      r._weight = font_constants::extra_bold;
+      r._weight = font_constants::weight_enum::extra_bold;
       return r;
    }
 
    inline font_descr font_descr::black() const
    {
       font_descr r = *this;
-      r._weight = font_constants::black;
+      r._weight = font_constants::weight_enum::black;
       return r;
    }
 
    inline font_descr font_descr::extra_black() const
    {
       font_descr r = *this;
-      r._weight = font_constants::extra_black;
+      r._weight = font_constants::weight_enum::extra_black;
       return r;
    }
 
@@ -246,21 +206,21 @@ namespace cycfi::artist
    inline font_descr font_descr::slant_normal() const
    {
       font_descr r = *this;
-      r._slant = font_constants::slant_normal;
+      r._slant = font_constants::slant_enum::slant_normal;
       return r;
    }
 
    inline font_descr font_descr::italic() const
    {
       font_descr r = *this;
-      r._slant = font_constants::italic;
+      r._slant = font_constants::slant_enum::italic;
       return r;
    }
 
    inline font_descr font_descr::oblique() const
    {
       font_descr r = *this;
-      r._slant = font_constants::oblique;
+      r._slant = font_constants::slant_enum::oblique;
       return r;
    }
 
@@ -274,63 +234,63 @@ namespace cycfi::artist
    inline font_descr font_descr::ultra_condensed() const
    {
       font_descr r = *this;
-      r._stretch = font_constants::ultra_condensed;
+      r._stretch = font_constants::stretch_enum::ultra_condensed;
       return r;
    }
 
    inline font_descr font_descr::extra_condensed() const
    {
       font_descr r = *this;
-      r._stretch = font_constants::extra_condensed;
+      r._stretch = font_constants::stretch_enum::extra_condensed;
       return r;
    }
 
    inline font_descr font_descr::condensed() const
    {
       font_descr r = *this;
-      r._stretch = font_constants::condensed;
+      r._stretch = font_constants::stretch_enum::condensed;
       return r;
    }
 
    inline font_descr font_descr::semi_condensed() const
    {
       font_descr r = *this;
-      r._stretch = font_constants::semi_condensed;
+      r._stretch = font_constants::stretch_enum::semi_condensed;
       return r;
    }
 
    inline font_descr font_descr::stretch_normal() const
    {
       font_descr r = *this;
-      r._stretch = font_constants::stretch_normal;
+      r._stretch = font_constants::stretch_enum::stretch_normal;
       return r;
    }
 
    inline font_descr font_descr::semi_expanded() const
    {
       font_descr r = *this;
-      r._stretch = font_constants::semi_expanded;
+      r._stretch = font_constants::stretch_enum::semi_expanded;
       return r;
    }
 
    inline font_descr font_descr::expanded() const
    {
       font_descr r = *this;
-      r._stretch = font_constants::expanded;
+      r._stretch = font_constants::stretch_enum::expanded;
       return r;
    }
 
    inline font_descr font_descr::extra_expanded() const
    {
       font_descr r = *this;
-      r._stretch = font_constants::extra_expanded;
+      r._stretch = font_constants::stretch_enum::extra_expanded;
       return r;
    }
 
    inline font_descr font_descr::ultra_expanded() const
    {
       font_descr r = *this;
-      r._stretch = font_constants::ultra_expanded;
+      r._stretch = font_constants::stretch_enum::ultra_expanded;
       return r;
    }
 

@@ -30,13 +30,6 @@ namespace cycfi::artist
                                        template <std::size_t N>
       constexpr void                   apply(point p[N]) const;
       constexpr void                   apply(point p[], std::size_t n) const;
-
-      double a    = 1.0;
-      double b    = 0.0;
-      double c    = 0.0;
-      double d    = 1.0;
-      double tx   = 0.0;
-      double ty   = 0.0;
    };
 
    constexpr affine_transform affine_identity = { 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 };

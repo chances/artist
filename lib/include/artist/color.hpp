@@ -6,6 +6,7 @@
 #if !defined(ARTIST_POINT_APRIL_11_2016)
 #define ARTIST_POINT_APRIL_11_2016
 
+#include <artist/c/color.h>
 #include <cstdint>
 #include <algorithm>
 
@@ -14,21 +15,17 @@ namespace cycfi::artist
    ////////////////////////////////////////////////////////////////////////////
    // Colors
    ////////////////////////////////////////////////////////////////////////////
-   struct color
+   struct color : artist_color
    {
-      constexpr         color() = default;
+      // constexpr         color() = default;
       constexpr         color(
                            float red, float green
                          , float blue, float alpha = 1.0f
                         );
+      // constexpr         color(artist_color const& c);
 
       constexpr color   opacity(float alpha_) const;
       constexpr color   level(float amount) const;
-
-      float red   = 0.0f;
-      float green = 0.0f;
-      float blue  = 0.0f;
-      float alpha = 0.0f;
    };
 
    constexpr bool operator==(color const& a, color const& b);
@@ -43,8 +40,12 @@ namespace cycfi::artist
     , float blue
     , float alpha
    )
-      : red(red), green(green), blue(blue), alpha(alpha)
+      : color(red, green, blue, alpha)
    {}
+
+   // constexpr color(artist_color const& c)
+   //    : color(c.red, c.green, c.blue, c.alpha)
+   // {}
 
    constexpr color rgb(std::uint32_t rgb)
    {

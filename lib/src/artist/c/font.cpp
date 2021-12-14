@@ -6,45 +6,55 @@
 #include <artist/font.hpp>
 #include <artist/c/font.h>
 
+using namespace cycfi;
+
+artist::font_descr from_c_font_descr(artist_font_descr const& f) {
+   return artist::font_descr {
+      f._families,
+      f._size,
+      f._weight,
+      f._slant,
+      f._stretch,
+   };
+}
+
 extern "C" {
-   font_descr     artist_font_descr_normal(font_descr f) { return f.normal(); }
-   font_descr     artist_font_descr_size(font_descr f, float size_) { return f.size(size_); }
+   artist_font_descr     artist_font_descr_normal(artist_font_descr f) { return from_c_font_descr(f).normal(); }
+   artist_font_descr     artist_font_descr_size(artist_font_descr f, float size_) { return from_c_font_descr(f).size(size_); }
 
-   font_descr     artist_font_descr_weight(font_descr f, weight_enum w) { return f.weight(w); }
-   font_descr     artist_font_descr_thin(font_descr f) { return f.thin(); }
-   font_descr     artist_font_descr_extra_light(font_descr f) { return f.extra_light(); }
-   font_descr     artist_font_descr_light(font_descr f) { return f.light(); }
-   font_descr     artist_font_descr_weight_normal(font_descr f) { return f.weight_normal(); }
-   font_descr     artist_font_descr_medium(font_descr f) { return f.medium(); }
-   font_descr     artist_font_descr_semi_bold(font_descr f) { return f.semi_bold(); }
-   font_descr     artist_font_descr_bold(font_descr f) { return f.bold(); }
-   font_descr     artist_font_descr_extra_bold(font_descr f) { return f.extra_bold(); }
-   font_descr     artist_font_descr_black(font_descr f) { return f.black(); }
-   font_descr     artist_font_descr_extra_black(font_descr f) { return f.extra_black(); }
+   artist_font_descr     artist_font_descr_weight(artist_font_descr f, artist_weight_enum w) { return from_c_font_descr(f).weight(w); }
+   artist_font_descr     artist_font_descr_thin(artist_font_descr f) { return from_c_font_descr(f).thin(); }
+   artist_font_descr     artist_font_descr_extra_light(artist_font_descr f) { return from_c_font_descr(f).extra_light(); }
+   artist_font_descr     artist_font_descr_light(artist_font_descr f) { return from_c_font_descr(f).light(); }
+   artist_font_descr     artist_font_descr_weight_normal(artist_font_descr f) { return from_c_font_descr(f).weight_normal(); }
+   artist_font_descr     artist_font_descr_medium(artist_font_descr f) { return from_c_font_descr(f).medium(); }
+   artist_font_descr     artist_font_descr_semi_bold(artist_font_descr f) { return from_c_font_descr(f).semi_bold(); }
+   artist_font_descr     artist_font_descr_bold(artist_font_descr f) { return from_c_font_descr(f).bold(); }
+   artist_font_descr     artist_font_descr_extra_bold(artist_font_descr f) { return from_c_font_descr(f).extra_bold(); }
+   artist_font_descr     artist_font_descr_black(artist_font_descr f) { return from_c_font_descr(f).black(); }
+   artist_font_descr     artist_font_descr_extra_black(artist_font_descr f) { return from_c_font_descr(f).extra_black(); }
 
-   font_descr     artist_font_descr_style(font_descr f, slant_enum s) { return f.style(s); }
-   font_descr     artist_font_descr_slant_normal(font_descr f) { return f.slant_normal(); }
-   font_descr     artist_font_descr_italic(font_descr f) { return f.italic(); }
-   font_descr     artist_font_descr_oblique(font_descr f) { return f.oblique(); }
+   artist_font_descr     artist_font_descr_style(artist_font_descr f, artist_slant_enum s) { return from_c_font_descr(f).style(s); }
+   artist_font_descr     artist_font_descr_slant_normal(artist_font_descr f) { return from_c_font_descr(f).slant_normal(); }
+   artist_font_descr     artist_font_descr_italic(artist_font_descr f) { return from_c_font_descr(f).italic(); }
+   artist_font_descr     artist_font_descr_oblique(artist_font_descr f) { return from_c_font_descr(f).oblique(); }
 
-   font_descr     artist_font_descr_stretch(font_descr f, stretch_enum s) { return f.stretch(s); }
-   font_descr     artist_font_descr_ultra_condensed(font_descr f) { return f.ultra_condensed(); }
-   font_descr     artist_font_descr_extra_condensed(font_descr f) { return f.extra_condensed(); }
-   font_descr     artist_font_descr_condensed(font_descr f) { return f.condensed(); }
-   font_descr     artist_font_descr_semi_condensed(font_descr f) { return f.semi_condensed(); }
-   font_descr     artist_font_descr_stretch_normal(font_descr f) { return f.stretch_normal(); }
-   font_descr     artist_font_descr_semi_expanded(font_descr f) { return f.semi_expanded(); }
-   font_descr     artist_font_descr_expanded(font_descr f) { return f.expanded(); }
-   font_descr     artist_font_descr_extra_expanded(font_descr f) { return f.extra_expanded(); }
-   font_descr     artist_font_descr_ultra_expanded(font_descr f) { return f.ultra_expanded(); }
+   artist_font_descr     artist_font_descr_stretch(artist_font_descr f, artist_stretch_enum s) { return from_c_font_descr(f).stretch(s); }
+   artist_font_descr     artist_font_descr_ultra_condensed(artist_font_descr f) { return from_c_font_descr(f).ultra_condensed(); }
+   artist_font_descr     artist_font_descr_extra_condensed(artist_font_descr f) { return from_c_font_descr(f).extra_condensed(); }
+   artist_font_descr     artist_font_descr_condensed(artist_font_descr f) { return from_c_font_descr(f).condensed(); }
+   artist_font_descr     artist_font_descr_semi_condensed(artist_font_descr f) { return from_c_font_descr(f).semi_condensed(); }
+   artist_font_descr     artist_font_descr_stretch_normal(artist_font_descr f) { return from_c_font_descr(f).stretch_normal(); }
+   artist_font_descr     artist_font_descr_semi_expanded(artist_font_descr f) { return from_c_font_descr(f).semi_expanded(); }
+   artist_font_descr     artist_font_descr_expanded(artist_font_descr f) { return from_c_font_descr(f).expanded(); }
+   artist_font_descr     artist_font_descr_extra_expanded(artist_font_descr f) { return from_c_font_descr(f).extra_expanded(); }
+   artist_font_descr     artist_font_descr_ultra_expanded(artist_font_descr f) { return from_c_font_descr(f).ultra_expanded(); }
 
-   typedef struct artist::font font;
+   artist_font*         artist_font_create() { return (artist_font*) new artist::font(); }
+   artist_font*         artist_font_create_with_descr(artist_font_descr descr) { return (artist_font*) new artist::font(from_c_font_descr(descr)); }
+   void                 artist_font_destroy(artist_font* f) { delete f; }
 
-   font*          artist_font_create() { return new artist::font(); }
-   font*          artist_font_create_with_descr(font_descr descr) { return new artist::font(descr); }
-   void           artist_font_destroy(font* f) { delete f; }
-
-   metrics_info   artist_font_metrics(font* f) { return f->metrics(); }
-   float          artist_font_line_height(font* f) { return f->line_height(); }
-   float          artist_font_measure_text(font* f, string_view* str) { return f->measure_text(*str); }
+   artist_metrics_info  artist_font_metrics(artist_font* f) { return ((artist::font*)f)->metrics(); }
+   float                artist_font_line_height(artist_font* f) { return ((artist::font*)f)->line_height(); }
+   float                artist_font_measure_text(artist_font* f, string_view* str) { return ((artist::font*)f)->measure_text(*(std::string_view*)str); }
 }

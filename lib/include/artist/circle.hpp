@@ -6,6 +6,7 @@
 #if !defined(ARTIST_CIRCLE_APRIL_17_2016)
 #define ARTIST_CIRCLE_APRIL_17_2016
 
+#include <artist/c/circle.h>
 #include <artist/rect.hpp>
 #include <algorithm>
 
@@ -14,11 +15,12 @@ namespace cycfi::artist
    ////////////////////////////////////////////////////////////////////////////
    // Circles
    ////////////////////////////////////////////////////////////////////////////
-   struct circle
+   struct circle : artist_circle
    {
       constexpr   circle();
       constexpr   circle(float cx, float cy, float radius);
       constexpr   circle(point c, float radius);
+      constexpr   circle(artist_circle const& c);
       constexpr   circle(rect const& r);
                   circle(circle const&) = default;
       circle&     operator=(circle const&) = default;
@@ -31,25 +33,21 @@ namespace cycfi::artist
       circle      inset(float x) const;
       circle      move(float dx, float dy) const;
       circle      move_to(float x, float y) const;
-
-      float       cx;
-      float       cy;
-      float       radius;
    };
 
    ////////////////////////////////////////////////////////////////////////////
    // Inlines
    ////////////////////////////////////////////////////////////////////////////
    inline constexpr circle::circle()
-    : cx(0.0), cy(0.0), radius(0.0)
-   {}
-
-   inline constexpr circle::circle(float cx, float cy, float radius)
-    : cx(cx), cy(cy), radius(radius)
+    : circle(0.0, 0.0, 0.0)
    {}
 
    inline constexpr circle::circle(point c, float radius)
-    : cx(c.x), cy(c.y), radius(radius)
+    : circle(c.x, c.y, radius)
+   {}
+
+   inline constexpr circle::circle(artist_circle const& c)
+    : circle(c.cx, c.cy, c.radius)
    {}
 
    inline constexpr circle::circle(rect const& r)
